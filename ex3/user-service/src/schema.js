@@ -1,7 +1,7 @@
 const { makeExecutableSchema } = require('graphql-tools')
 
 let idCount = 0
-const posts = []
+const users = []
 
 const typeDefs = `
 type Query {

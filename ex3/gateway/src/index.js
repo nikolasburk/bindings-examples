@@ -6,11 +6,11 @@ const RemoteBinding = require('./RemoteBinding')
 
 const userServiceBinding = new RemoteBinding({
   typeDefs: '../schemas/user-service.graphql',
-  endpoint: ''
+  endpoint: 'https://user-service-bjlatpkhoz.now.sh/'
 })
 const postServiceBinding = new RemoteBinding({
-  typeDefs: '../schemas/user-service.graphql',
-  endpoint: ''
+  typeDefs: '../schemas/post-service.graphql',
+  endpoint: 'https://post-service-mktssxhxpu.now.sh'
 })
 
 const typeDefs = `
