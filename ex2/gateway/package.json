@@ -2,11 +2,17 @@
   "name": "gateway",
   "version": "1.0.0",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "get-schema": "graphql get-schema --all"
   },
   "dependencies": {
+    "apollo-link-http": "^1.5.4",
     "graphql": "^0.13.2",
     "graphql-binding": "^1.4.0-beta.7",
-    "graphql-yoga": "^1.13.1"
+    "graphql-yoga": "^1.13.1",
+    "node-fetch": "^2.1.2"
+  },
+  "devDependencies": {
+    "graphql-cli": "^2.15.13"
   }
 }

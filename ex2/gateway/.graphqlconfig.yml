@@ -1,0 +1,6 @@
+projects:
+  post-service:
+    schemaPath: schemas/post-service.graphql
+    extensions:
+      endpoints:
+        default: http://localhost:4001
