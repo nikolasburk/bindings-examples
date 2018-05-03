@@ -1,0 +1,21 @@
+# source: http://localhost:4001
+# timestamp: Thu May 03 2018 12:48:29 GMT+0200 (CEST)
+
+type Mutation {
+  createPost(title: String!, content: String!, published: Boolean): Post!
+  updatePost(id: ID!, title: String, content: String, published: Boolean): Post
+  deletePost(id: ID!): Post
+}
+
+type Post {
+  id: ID!
+  title: String!
+  content: String!
+  published: Boolean!
+}
+
+type Query {
+  posts: [Post!]!
+  post(id: ID!): Post
+  description: String!
+}

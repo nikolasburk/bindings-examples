@@ -1,6 +1,6 @@
 projects:
   post-service:
-    schemPath: schemas/post-service.graphql
+    schemaPath: schemas/post-service.graphql
     extensions:
       endpoints:
         default: https://post-service-mktssxhxpu.now.sh
@@ -8,4 +8,4 @@ projects:
     schemaPath: schemas/user-service.graphql
     extensions:
       endpoints:
-        default: https://user-service-hckmxkgmdv.now.sh
+        default: http://localhost:4002
