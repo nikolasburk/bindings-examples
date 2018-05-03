@@ -1,0 +1,11 @@
+projects:
+  post-service:
+    schemPath: schemas/post-service.graphql
+    extensions:
+      endpoints:
+        default: ...
+  user-service:
+    schemaPath: schemas/user-service.graphql
+    extensions:
+      endpoints:
+        default: ...
