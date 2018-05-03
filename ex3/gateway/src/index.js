@@ -4,8 +4,14 @@ const generateName = require('sillyname')
 
 const RemoteBinding = require('./RemoteBinding')
 
-const userServiceBinding = new RemoteBinding()
-const postServiceBinding = new RemoteBinding()
+const userServiceBinding = new RemoteBinding({
+  typeDefs: '../schemas/user-service.graphql',
+  endpoint: ''
+})
+const postServiceBinding = new RemoteBinding({
+  typeDefs: '../schemas/user-service.graphql',
+  endpoint: ''
+})
 
 const typeDefs = `
 # import Post from '../schemas/post-service.graphql'
