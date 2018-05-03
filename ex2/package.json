@@ -1,8 +1,4 @@
 {
   "private": true,
-  "workspaces": [
-    "gateway",
-    "post-service"
-  ],
-  "devDependencies": {}
+  "workspaces": ["gateway", "post-service"]
 }

@@ -2,7 +2,7 @@
   "name": "user-service",
   "version": "1.0.0",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/server.js"
   },
   "dependencies": {
     "graphql-tools": "^3.0.0",

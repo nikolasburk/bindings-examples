@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js",
+    "get-schema": "graphql get-schema --all"
+  },
   "dependencies": {
     "graphql-yoga": "^1.13.1",
     "sillyname": "^0.1.0"
+  },
+  "devDependencies": {
+    "graphql-cli": "^2.15.13"
   }
 }
