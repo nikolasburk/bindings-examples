@@ -25,7 +25,7 @@ type Post {
 
 const resolvers = {
   Query: {
-    posts: async (_, args, ctx, info) => {
+    posts: async (parent, args, ctx, info) => {
       const searchString = args.searchString ? args.searchString : ''
       const ensureTitleAndContentFragment = `
         fragment EnsureTitleAndContentFragment on Post {
@@ -44,7 +44,7 @@ const resolvers = {
     },
   },
   Mutation: {
-    createDraft: (_, args, ctx, info) => {
+    createDraft: (parent, args, ctx, info) => {
       return postBinding.mutation.createPost(
         {
           title: args.title,
@@ -54,7 +54,7 @@ const resolvers = {
         info,
       )
     },
-    publish: (_, args, ctx, info) => {
+    publish: (parent, args, ctx, info) => {
       return postBinding.mutation.updatePost(
         {
           id: args.id,
@@ -63,7 +63,7 @@ const resolvers = {
         info,
       )
     },
-    deletePost: (_, args, ctx, info) => {
+    deletePost: (parent, args, ctx, info) => {
       return postBinding.deletePost(
         {
           id: args.id,

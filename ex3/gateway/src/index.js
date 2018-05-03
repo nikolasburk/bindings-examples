@@ -22,7 +22,7 @@ const userServiceBinding = new RemoteBinding({
 
 const resolvers = {
   Query: {
-    posts: async (_, args, context, info) => {
+    posts: async (parent, args, ctx, info) => {
       const searchString = args.searchString ? args.searchString : ''
       const ensureTitleAndContentFragment = `
         fragment EnsureTitleAndContentFragment on Post {
@@ -30,7 +30,7 @@ const resolvers = {
           content
         }
       `
-      const allPosts = await context.postService.query.posts({}, info)
+      const allPosts = await ctx.postService.query.posts({}, info)
       // .posts({}, addFragmentToInfo(info, ensureTitleAndContentFragment))
 
       return allPosts.filter(
@@ -39,8 +39,8 @@ const resolvers = {
           post.content.includes(searchString),
       )
     },
-    user: (_, args, context, info) => {
-      return context.postService.mutation.user(
+    user: (parent, args, ctx, info) => {
+      return ctx.postService.mutation.user(
         {
           id: args.id,
         },
@@ -49,8 +49,8 @@ const resolvers = {
     },
   },
   Mutation: {
-    createDraft: (_, args, context, info) => {
-      return context.postService.mutation.createPost(
+    createDraft: (parent, args, ctx, info) => {
+      return ctx.postService.mutation.createPost(
         {
           title: args.title,
           content: args.content,
@@ -59,8 +59,8 @@ const resolvers = {
         info,
       )
     },
-    publish: (_, args, context, info) => {
-      return context.postService.mutation.updatePost(
+    publish: (parent, args, ctx, info) => {
+      return ctx.postService.mutation.updatePost(
         {
           id: args.id,
           published: true,
@@ -68,25 +68,25 @@ const resolvers = {
         info,
       )
     },
-    deletePost: (_, args, context, info) => {
-      return context.postService.deletePost(
+    deletePost: (parent, args, ctx, info) => {
+      return ctx.postService.deletePost(
         {
           id: args.id,
         },
         info,
       )
     },
-    login: (_, args, context, info) => {
+    login: (parent, args, ctx, info) => {
       const sillyName = generateName()
-      return context.userService.createUser(
+      return ctx.userService.createUser(
         {
           name: sillyname,
         },
         info,
       )
     },
-    changeName: (_, args, context, info) => {
-      return context.userServiceBinding.updateUser(
+    changeName: (parent, args, ctx, info) => {
+      return ctx.userServiceBinding.updateUser(
         {
           id: args.id,
           name: newName,
@@ -100,7 +100,7 @@ const resolvers = {
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,
-  context: req => ({
+  ctx: req => ({
     userService: userServiceBinding,
     postService: postServiceBinding,
   }),
