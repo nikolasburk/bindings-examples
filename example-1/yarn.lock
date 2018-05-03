@@ -515,9 +515,9 @@ get-stream@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
 
-graphql-binding@^1.4.0-beta.9:
-  version "1.4.0-beta.9"
-  resolved "https://registry.yarnpkg.com/graphql-binding/-/graphql-binding-1.4.0-beta.9.tgz#9aafb817844dc0de17fd729a10ee6d88f6eb78ae"
+graphql-binding@^1.4.0-beta.12:
+  version "1.4.0-beta.12"
+  resolved "https://registry.yarnpkg.com/graphql-binding/-/graphql-binding-1.4.0-beta.12.tgz#5d8721baf1d888f0f3187d16d380dc5ed939093f"
   dependencies:
     graphql-import "^0.5.0"
     graphql-tools "3.0.0"

@@ -13,4 +13,4 @@ const typeDefs = fs.readFileSync(
 
 const schema = makeRemoteExecutableSchema({ link, schema: typeDefs })
 
-module.exports = makeBindingClass(schema)
+module.exports = makeBindingClass({ schema })
