@@ -1,8 +1,28 @@
-const fs = require('fs')
 const { makeExecutableSchema } = require('graphql-tools')
 
 let idCount = 0
 const posts = []
+
+const typeDefs = `
+type Query {
+  posts: [Post!]!
+  post(id: ID!): Post
+  description: String!
+}
+
+type Mutation {
+  createPost(title: String!, content: String!, published: Boolean): Post!
+  updatePost(id: ID!, title: String, content: String, published: Boolean): Post
+  deletePost(id: ID!): Post
+}
+
+type Post {
+  id: ID!
+  title: String!
+  content: String!
+  published: Boolean!
+}
+`
 
 const resolvers = {
   Query: {
@@ -37,11 +57,6 @@ const resolvers = {
   },
 }
 
-const schema = makeExecutableSchema({
-  typeDefs: fs.readFileSync(__dirname + '/schema.graphql', 'utf-8'),
-  resolvers,
-})
+const schema = makeExecutableSchema({ typeDefs, resolvers })
 
-module.exports = {
-  schema,
-}
+module.exports = schema
