@@ -3,7 +3,7 @@ projects:
     schemPath: schemas/post-service.graphql
     extensions:
       endpoints:
-        default: ...
+        default: https://post-service-mktssxhxpu.now.sh
   user-service:
     schemaPath: schemas/user-service.graphql
     extensions:
