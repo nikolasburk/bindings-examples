@@ -8,6 +8,7 @@
     "get-schema": "graphql get-schema --all"
   },
   "dependencies": {
+    "graphql-binding": "^1.4.0-beta.8",
     "graphql-yoga": "^1.13.1",
     "sillyname": "^0.1.0"
   },
