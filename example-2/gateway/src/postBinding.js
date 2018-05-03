@@ -1,7 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const fetch = require('node-fetch')
-const { makeBinding } = require('graphql-binding')
+const { makeBindingClass } = require('graphql-binding')
 const { HttpLink } = require('apollo-link-http')
 const { makeRemoteExecutableSchema } = require('graphql-tools')
 
@@ -13,4 +13,4 @@ const typeDefs = fs.readFileSync(
 
 const schema = makeRemoteExecutableSchema({ link, schema: typeDefs })
 
-module.exports = makeBinding(schema)
+module.exports = makeBindingClass(schema)

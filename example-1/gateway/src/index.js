@@ -27,19 +27,13 @@ const resolvers = {
   Query: {
     posts: async (parent, args, ctx, info) => {
       const searchString = args.searchString ? args.searchString : ''
-      // const ensureTitleAndContentFragment = `
-      //   fragment EnsureTitleAndContentFragment on Post {
-      //     title
-      //     content
-      //   }
-      // `
       const ensureTitleAndContentFragment = `
-      {
-        title
-        content
-      }
+        fragment EnsureTitleAndContentFragment on Post {
+          title
+          content
+        }
       `
-      const allPosts = await postBinding.query.posts(
+      const allPosts = await ctx.postService.query.posts(
         {},
         addFragmentToInfo(info, ensureTitleAndContentFragment),
       )

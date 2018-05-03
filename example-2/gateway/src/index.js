@@ -33,8 +33,10 @@ const resolvers = {
           content
         }
       `
-      const allPosts = await postBinding.query.posts({}, info)
-      // .posts({}, addFragmentToInfo(info, ensureTitleAndContentFragment))
+      const allPosts = await postBinding.query.posts(
+        {},
+        addFragmentToInfo(info, ensureTitleAndContentFragment),
+      )
 
       return allPosts.filter(
         post =>

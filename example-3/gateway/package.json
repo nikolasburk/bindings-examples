@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "apollo-link-http": "^1.5.4",
-    "graphql-binding": "^1.4.0-beta.8",
+    "graphql-binding": "^1.4.0-beta.9",
     "graphql-yoga": "^1.13.1",
     "sillyname": "^0.1.0"
   },

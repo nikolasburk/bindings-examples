@@ -30,8 +30,10 @@ const resolvers = {
           content
         }
       `
-      const allPosts = await ctx.postService.query.posts({}, info)
-      // .posts({}, addFragmentToInfo(info, ensureTitleAndContentFragment))
+      const allPosts = await ctx.postService.query.posts(
+        {},
+        addFragmentToInfo(info, ensureTitleAndContentFragment),
+      )
 
       return allPosts.filter(
         post =>
