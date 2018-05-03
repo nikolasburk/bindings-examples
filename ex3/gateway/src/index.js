@@ -11,6 +11,14 @@ const userServiceBinding = new RemoteBinding({
   typeDefsPath: '../schemas/user-service.graphql',
   endpoint: 'http://localhost:4002',
 })
+// const postServiceBinding = new RemoteBinding({
+//   typeDefs: '../schemas/post-service.graphql',
+//   endpoint: 'https://post-service-mktssxhxpu.now.sh',
+// })
+// const userServiceBinding = new RemoteBinding({
+//   typeDefs: '../schemas/user-service.graphql',
+//   endpoint: 'https://user-service-bjlatpkhoz.now.sh/',
+// })
 
 const resolvers = {
   Query: {
