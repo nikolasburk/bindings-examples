@@ -1,39 +1,20 @@
 const { GraphQLServer } = require('graphql-yoga')
 const { addFragmentToInfo } = require('graphql-binding')
 const generateName = require('sillyname')
-
 const RemoteBinding = require('./RemoteBinding')
 
-const userServiceBinding = new RemoteBinding({
-  typeDefs: '../schemas/user-service.graphql',
-  endpoint: ''
-})
 const postServiceBinding = new RemoteBinding({
-  typeDefs: '../schemas/user-service.graphql',
-  endpoint: ''
+  typeDefsPath: '../schemas/post-service.graphql',
+  endpoint: 'http://localhost:4001',
 })
-
-const typeDefs = `
-# import Post from '../schemas/post-service.graphql'
-# import User from '../schemas/user-service.graphql'
-
-type Query {
-  posts(searchString: String): [Post!]!
-  user(id: ID!): User
-}
-
-type Mutation {
-  createDraft(title: String!, content: String!): Post
-  publish(id: ID!): Post
-  deletePost(id: ID!): Post
-  login(): User!
-  changeName(id: ID!, newName: String!): User
-}
-`
+const userServiceBinding = new RemoteBinding({
+  typeDefsPath: '../schemas/user-service.graphql',
+  endpoint: 'http://localhost:4002',
+})
 
 const resolvers = {
   Query: {
-    posts: (_, args, context, info) => {
+    posts: async (_, args, context, info) => {
       const searchString = args.searchString ? args.searchString : ''
       const ensureTitleAndContentFragment = `
         fragment EnsureTitleAndContentFragment on Post {
@@ -41,13 +22,14 @@ const resolvers = {
           content
         }
       `
-      return context.postService.query
-        .posts({}, addFragmentToInfo(info, ensureTitleAndContentFragment))
-        .filter(
-          post =>
-            post.title.includes(searchString) ||
-            post.content.includes(searchString),
-        )
+      const allPosts = await context.postService.query.posts({}, info)
+      // .posts({}, addFragmentToInfo(info, ensureTitleAndContentFragment))
+
+      return allPosts.filter(
+        post =>
+          post.title.includes(searchString) ||
+          post.content.includes(searchString),
+      )
     },
     user: (_, args, context, info) => {
       return context.postService.mutation.user(
@@ -108,7 +90,7 @@ const resolvers = {
 }
 
 const server = new GraphQLServer({
-  typeDefs,
+  typeDefs: './src/schema.graphql',
   resolvers,
   context: req => ({
     userService: userServiceBinding,

@@ -1,0 +1,15 @@
+# import Post from '../schemas/post-service.graphql'
+# import User from '../schemas/user-service.graphql'
+
+type Query {
+  posts(searchString: String): [Post!]!
+  user(id: ID!): User
+}
+
+type Mutation {
+  createDraft(title: String!, content: String!): Post
+  publish(id: ID!): Post
+  deletePost(id: ID!): Post
+  login: User!
+  changeName(id: ID!, newName: String!): User
+}

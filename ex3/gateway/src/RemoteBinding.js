@@ -1,24 +1,22 @@
-import { Binding } from 'graphql-binding'
-import { HTTPLink } from 'apollo-link-http'
-import { importSchema } from 'graphql-import'
-import { makeRemoteExecutableSchema } from 'graphql-tools'
+const fs = require('fs')
+const path = require('path')
+const fetch = require('node-fetch')
+const { Binding } = require('graphql-binding')
+const { HttpLink } = require('apollo-link-http')
+const { makeRemoteExecutableSchema } = require('graphql-tools')
 
 class RemoteBinding extends Binding {
-  constructor({ typeDefs, endpoint }) {
-    if (typeDefs.endsWith('.graphql')) {
-      typeDefs = importSchema(typeDefs)
-    }
+  constructor({ typeDefsPath, endpoint }) {
+    const link = new HttpLink({ uri: endpoint, fetch })
+    const typeDefs = fs.readFileSync(
+      path.join(__dirname, typeDefsPath),
+      'utf-8',
+    )
 
-    const link = new HTTPLink({
-      uri: endpoint,
-    })
-    const remoteSchema = makeRemoteExecutableSchema({
-      link,
-      schema: typeDefs,
-    })
+    const schema = makeRemoteExecutableSchema({ link, schema: typeDefs })
 
     super({
-      schema: remoteSchema,
+      schema: schema,
     })
   }
 }
