@@ -1,0 +1,11 @@
+{
+  "name": "gateway",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "graphql": "^0.13.2",
+    "graphql-binding": "^1.4.0-beta.7",
+    "graphql-yoga": "^1.13.1"
+  }
+}
