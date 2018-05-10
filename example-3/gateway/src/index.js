@@ -3,26 +3,9 @@ const { addFragmentToInfo } = require('graphql-binding')
 const generateName = require('sillyname')
 const RemoteBinding = require('./RemoteBinding')
 
-const postServiceBinding = new RemoteBinding({
-  typeDefsPath: '../schemas/post-service.graphql',
-  endpoint: 'http://localhost:4001',
-})
-const userServiceBinding = new RemoteBinding({
-  typeDefsPath: '../schemas/user-service.graphql',
-  endpoint: 'http://localhost:4002',
-})
-// const postServiceBinding = new RemoteBinding({
-//   typeDefs: '../schemas/post-service.graphql',
-//   endpoint: 'https://post-service-mktssxhxpu.now.sh',
-// })
-// const userServiceBinding = new RemoteBinding({
-//   typeDefs: '../schemas/user-service.graphql',
-//   endpoint: 'https://user-service-bjlatpkhoz.now.sh/',
-// })
-
 const resolvers = {
   Query: {
-    posts: async (parent, args, ctx, info) => {
+    posts: async (parent, args, context, info) => {
       const searchString = args.searchString ? args.searchString : ''
       const ensureTitleAndContentFragment = `
         fragment EnsureTitleAndContentFragment on Post {
@@ -30,7 +13,7 @@ const resolvers = {
           content
         }
       `
-      const allPosts = await ctx.postService.query.posts(
+      const allPosts = await context.postService.query.posts(
         {},
         addFragmentToInfo(info, ensureTitleAndContentFragment),
       )
@@ -41,8 +24,8 @@ const resolvers = {
           post.content.includes(searchString),
       )
     },
-    user: (parent, args, ctx, info) => {
-      return ctx.postService.query.user(
+    user: (parent, args, context, info) => {
+      return context.postService.query.user(
         {
           id: args.id,
         },
@@ -51,8 +34,8 @@ const resolvers = {
     },
   },
   Mutation: {
-    createDraft: (parent, args, ctx, info) => {
-      return ctx.postService.mutation.createPost(
+    createDraft: (parent, args, context, info) => {
+      return context.postService.mutation.createPost(
         {
           title: args.title,
           content: args.content,
@@ -61,8 +44,8 @@ const resolvers = {
         info,
       )
     },
-    publish: (parent, args, ctx, info) => {
-      return ctx.postService.mutation.updatePost(
+    publish: (parent, args, context, info) => {
+      return context.postService.mutation.updatePost(
         {
           id: args.id,
           published: true,
@@ -70,25 +53,25 @@ const resolvers = {
         info,
       )
     },
-    deletePost: (parent, args, ctx, info) => {
-      return ctx.postService.mutation.deletePost(
+    deletePost: (parent, args, context, info) => {
+      return context.postService.mutation.deletePost(
         {
           id: args.id,
         },
         info,
       )
     },
-    login: (parent, args, ctx, info) => {
+    login: (parent, args, context, info) => {
       const sillyName = generateName()
-      return ctx.userService.mutation.createUser(
+      return context.userService.mutation.createUser(
         {
           name: sillyname,
         },
         info,
       )
     },
-    changeName: (parent, args, ctx, info) => {
-      return ctx.userService.mutation.updateUser(
+    changeName: (parent, args, context, info) => {
+      return context.userService.mutation.updateUser(
         {
           id: args.id,
           name: newName,
@@ -99,10 +82,21 @@ const resolvers = {
   },
 }
 
+
+const postServiceBinding = new RemoteBinding({
+  typeDefsPath: '../schemas/post-service.graphql',
+  endpoint: 'http://localhost:4001',
+})
+const userServiceBinding = new RemoteBinding({
+  typeDefsPath: '../schemas/user-service.graphql',
+  endpoint: 'http://localhost:4002',
+})
+
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,
-  ctx: req => ({
+  context: req => ({
+    ...req,
     userService: userServiceBinding,
     postService: postServiceBinding,
   }),
