@@ -65,7 +65,7 @@ const resolvers = {
       const sillyName = generateName()
       return context.userService.mutation.createUser(
         {
-          name: sillyname,
+          name: sillyName,
         },
         info,
       )
@@ -74,7 +74,7 @@ const resolvers = {
       return context.userService.mutation.updateUser(
         {
           id: args.id,
-          name: newName,
+          name: args.newName,
         },
         info,
       )
