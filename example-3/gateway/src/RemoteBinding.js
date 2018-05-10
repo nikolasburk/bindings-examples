@@ -15,9 +15,7 @@ class RemoteBinding extends Binding {
 
     const schema = makeRemoteExecutableSchema({ link, schema: typeDefs })
 
-    super({
-      schema: schema,
-    })
+    super({ schema })
   }
 }
 

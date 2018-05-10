@@ -42,7 +42,7 @@ const resolvers = {
       )
     },
     user: (parent, args, ctx, info) => {
-      return ctx.postService.mutation.user(
+      return ctx.postService.query.user(
         {
           id: args.id,
         },
@@ -71,7 +71,7 @@ const resolvers = {
       )
     },
     deletePost: (parent, args, ctx, info) => {
-      return ctx.postService.deletePost(
+      return ctx.postService.mutation.deletePost(
         {
           id: args.id,
         },
@@ -80,7 +80,7 @@ const resolvers = {
     },
     login: (parent, args, ctx, info) => {
       const sillyName = generateName()
-      return ctx.userService.createUser(
+      return ctx.userService.mutation.createUser(
         {
           name: sillyname,
         },
@@ -88,7 +88,7 @@ const resolvers = {
       )
     },
     changeName: (parent, args, ctx, info) => {
-      return ctx.userServiceBinding.updateUser(
+      return ctx.userService.mutation.updateUser(
         {
           id: args.id,
           name: newName,

@@ -33,7 +33,7 @@ const resolvers = {
           content
         }
       `
-      const allPosts = await ctx.postService.query.posts(
+      const allPosts = await postBinding.query.posts(
         {},
         addFragmentToInfo(info, ensureTitleAndContentFragment),
       )
@@ -66,7 +66,7 @@ const resolvers = {
       )
     },
     deletePost: (parent, args, ctx, info) => {
-      return postBinding.deletePost(
+      return postBinding.mutation.deletePost(
         {
           id: args.id,
         },

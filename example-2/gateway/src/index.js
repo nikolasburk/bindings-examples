@@ -66,7 +66,7 @@ const resolvers = {
       )
     },
     deletePost: (parent, args, ctx, info) => {
-      return postBinding.deletePost(
+      return postBinding.mutation.deletePost(
         {
           id: args.id,
         },

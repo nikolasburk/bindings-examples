@@ -1,4 +1,12 @@
-const { makeBindingClass } = require('graphql-binding')
+const { Binding } = require('graphql-binding')
 const schema = require('../../post-service/src/schema')
 
-module.exports = makeBindingClass({ schema })
+class PostBinding extends Binding {
+
+  constructor() {
+    super({ schema })
+  }
+
+}
+
+module.exports = PostBinding
