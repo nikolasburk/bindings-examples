@@ -82,23 +82,19 @@ const resolvers = {
   },
 }
 
-
-const postServiceBinding = new RemoteBinding({
-  typeDefsPath: '../schemas/post-service.graphql',
-  endpoint: 'http://localhost:4001',
-})
-const userServiceBinding = new RemoteBinding({
-  typeDefsPath: '../schemas/user-service.graphql',
-  endpoint: 'http://localhost:4002',
-})
-
 const server = new GraphQLServer({
   typeDefs: './src/schema.graphql',
   resolvers,
   context: req => ({
     ...req,
-    userService: userServiceBinding,
-    postService: postServiceBinding,
+    userService: new RemoteBinding({
+      typeDefsPath: '../schemas/user-service.graphql',
+      endpoint: 'http://localhost:4002',
+    }),
+    postService: new RemoteBinding({
+      typeDefsPath: '../schemas/post-service.graphql',
+      endpoint: 'http://localhost:4001',
+    }),
   }),
 })
 server.start(() => console.log(`Server is running on http://localhost:4000`))
